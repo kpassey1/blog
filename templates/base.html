@@ -11,8 +11,26 @@
 
 <body>
  <header>
- <h1><a href="{% url 'home' %}">Django blog</a></h1>
+    <div class="nav-left">
+        <h1><a href="{% url 'home' %}">Django blog</a></h1>
+    </div>
+    <div class="nav_right">
+        <a href=" {% url 'post_new' %}">+ New Blog Post</a>
+    </div>
  </header>
+  <!-- new new HTML-->
+   {% if user.is_authenticated %}
+   <p>Hi {{ user.username }}</p>
+   <form action=" {% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Log out</button>
+   </form>
+   {% else %}
+   <p>Your are not logged in.</p>
+   <a href="{% url 'login' %}">Log In</a>
+   <a href="{% url 'signup' %}">Sign Up</a>
+   {% endif %}
+
  <div>
  {% block content %}
  {% endblock content %}
